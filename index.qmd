@@ -129,7 +129,7 @@ calibrate_tbl %>%
 
 auc <- ci.auc(roc(randomization ~ predict_randomization, data = randomization_tbl %>% filter(!is.na(predict_randomization))))
 
-cat(sprintf("\n\n## ROC curve AUC is %0.2f (95 percent CI %0.2f - %0.2f), \n\n", auc[2], auc[1], auc[3]))
+cat(sprintf("\n\n## ROC curve AUC is %0.2f (95 percent CI %0.2f - %0.2f)\n\n", auc[2], auc[1], auc[3]))
 
 plot(roc(randomization ~ predict_randomization, data = randomization_tbl %>% filter(!is.na(predict_randomization))))
 
