@@ -34,7 +34,6 @@ require(rms)
 require(betareg)
 require(scales)
 require(emmeans)
-require(rmarkdown)
 require(marginaleffects)
 ```
 
