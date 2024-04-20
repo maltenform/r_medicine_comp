@@ -13,6 +13,7 @@ execute:
   error: false
 ---
 
+
 # INTRODUCTION
 
 This is my attempt at the analyses requested in <https://rconsortium.github.io/RMedicine_website/Competition.html>. I focused on identifying predictive factors associated with two questions.
@@ -20,6 +21,7 @@ This is my attempt at the analyses requested in <https://rconsortium.github.io/R
 1.  Of the potential patients providing data, what factors were associated with succesful randomization?
 
 2.  Defining compliance as the % of potential study weeks where a patient showed up with a negative test, what factors were associated with higher compliance?
+
 
 ```{r setup}
 # load data and packages
@@ -36,9 +38,11 @@ require(scales)
 require(emmeans)
 ```
 
+
 # SUCCESSFUL RANDOMIZATION
 
 Of the patients listed in 'everybody' which ones are successfully randomized ('randomization')?
+
 
 ```{r randomization}
 # create wide table of drug usge
@@ -155,6 +159,7 @@ cat("\n\n### Age\n\n")
 plot(ggemmeans(lrm_final, "age[all]"))
 ```
 
+
 # ATTENDANCE AND COMPLIANCE POST-RANDOMIZATION
 
 This adapts the code from 'public.ctn0094extra' vignette to summarise substance use across weeks.
@@ -162,6 +167,7 @@ This adapts the code from 'public.ctn0094extra' vignette to summarise substance 
 I define compliance as how many times the patient showed up with a negative UDS report, divided by the length of time in the study (Study Week + 1 for Baseline). Attendance is how many times the patient showed up with a report (positive or negative), divided by length of time in the study.
 
 Beta regression is used to create a parsimonious model, pruned "by hand" to get rid of irrelevant predictors. The correlation coefficients for these models are not good (R-squared \< 0.03) but there may be some insight into how to get better attendance or compliance for patients
+
 
 ```{r compliance}
 data_ls <- loadRawData(c("randomization", "treatment"))
@@ -563,6 +569,7 @@ plot(ggemmeans(beta_attendance_red, "is_living_stable"))
 
 ```
 
+
 # CONCLUSIONS
 
 Analyses of the data indicate that the age of the participant is the most important factor for both successful randomization and higher attendance/compliance, however the effects go in opposite directions:
@@ -576,3 +583,4 @@ For randomization, the other predictors are the total reported drugs and martial
 For compliance and attendance, the predictive power of models are lower. Age remains the most powerful predictor, while other predictors appear to be race, job, marital status, and heroin and opioid.
 
 Future recruitment of patients into drug treatment trials might try greater outreach to older patients, who seemed less willing to participate but more successful.
+
