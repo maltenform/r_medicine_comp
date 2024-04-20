@@ -1,11 +1,16 @@
 ---
-title: "R Medicine Opioid competition"
+title: "R/Medicine 2024 Data Challenge"
 author: "Mitchell Maltenfort"
 
 number-sections: TRUE
 fig-height: 8
 fig-width: 8
 fig-dpi: 300
+
+execute:
+  output: asis
+  warning: false
+  error: false
 ---
 
 # INTRODUCTION
@@ -569,3 +574,5 @@ Analyses of the data indicate that the age of the participant is the most import
 For randomization, the other predictors are the total reported drugs and martial status, but in both cases missing is the most important factor – and there, lack of reported data (indicating unwillingness to participate by reporting data?) indicates lower probability of being randomized. The predictive power of this model is quite strong (AUC 0.8, linear calibration curve).
 
 For compliance and attendance, the predictive power of models are lower. Age remains the most powerful predictor, while other predictors appear to be race, job, marital status, and heroin and opioid.
+
+Future recruitment of patients into drug treatment trials might try greater outreach to older patients, who seemed less willing to participate but more successful.
