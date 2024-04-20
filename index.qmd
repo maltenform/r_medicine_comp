@@ -1,10 +1,11 @@
 ---
-title: "R_medicine_competition_MGM"
+title: "R Medicine Opioid competition"
+author: "Mitchell Maltenfort"
 
 number-sections: TRUE
 fig-height: 8
 fig-width: 8
-fig-dpi: 200
+fig-dpi: 300
 ---
 
 # INTRODUCTION

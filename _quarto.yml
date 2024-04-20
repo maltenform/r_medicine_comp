@@ -15,7 +15,7 @@ format:
     theme: cosmo
     css: styles.css
     toc: true
-    embed-resources: TRUE
+    embed-resources: FALSE
     code-tools:
       source: TRUE
       toggle: TRUE
