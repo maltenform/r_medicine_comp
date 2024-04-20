@@ -35,6 +35,7 @@ require(betareg)
 require(scales)
 require(emmeans)
 require(marginaleffects)
+require(rmarkdown)
 ```
 
 # SUCCESSFUL RANDOMIZATION
