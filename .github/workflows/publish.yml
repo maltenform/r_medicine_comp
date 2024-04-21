@@ -25,6 +25,17 @@ jobs:
             any::downlit
             any::xml2
             any::tidyverse
+            any::public.ctn0094data
+            any::public.ctn0094extra
+            any::rms
+            any::betareg
+            any::pROC
+            any::gemmeans
+            any::emmeans
+            any::scales
+            any::ggeffects
+            any::broom
+
 
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2

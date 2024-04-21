@@ -35,11 +35,7 @@ require(betareg)
 require(scales)
 require(emmeans)
 require(marginaleffects)
-require(rmarkdown)
-require(downlit)
-require(xml2)
-require(knitr)
-require(magrittr)
+
 
 
 
