@@ -35,6 +35,7 @@ jobs:
             any::ggeffects
             any::broom
             any::kableExtra
+            any::marginaleffects
 
 
       - name: Render and Publish
