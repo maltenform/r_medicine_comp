@@ -41,6 +41,13 @@ require(xml2)
 require(knitr)
 require(magrittr)
 
+data(rbs)
+data(randomization)
+data(demographics)
+data(everybody)
+data(treatment)
+data(visit)
+
 ```
 
 # SUCCESSFUL RANDOMIZATION
