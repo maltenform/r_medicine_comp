@@ -41,12 +41,7 @@ require(xml2)
 require(knitr)
 require(magrittr)
 
-data(rbs)
-data(randomization)
-data(demographics)
-data(everybody)
-data(treatment)
-data(visit)
+
 
 ```
 
@@ -55,13 +50,15 @@ data(visit)
 Of the patients listed in 'everybody' which ones are successfully randomized ('randomization')?
 
 ```{r randomization}
-# create wide table of drug usge
+# create wide table of drug usage
+
+data_ls <- loadRawData(c("randomization", "treatment", "rbs", "demographics", "everybody"))
 
 rbs_wide <-
-  rbs %>%
+  data_ls$rbs %>%
   mutate(value = case_when(did_use == "Yes" ~ 1, did_use == "No" ~ 0)) %>%
   dplyr::select(who, what, value) %>%
-  right_join(everybody %>% dplyr::select(who)) %>%
+  right_join(data_ls$everybody %>% dplyr::select(who)) %>%
   mutate(value = case_when(is.na(value) ~ 0, TRUE ~ value)) %>%
   pivot_wider(names_from = what, values_fill = 0) %>%
   mutate(total_reported_drugs = cocaine + heroin + speedball + opioid + speed) %>%
@@ -69,8 +66,8 @@ rbs_wide <-
   mutate(total_reported_drugs = as.factor(total_reported_drugs))
 
 randomization_tbl <-
-  demographics %>%
-  left_join(randomization %>% filter(which == 1)) %>%
+  data_ls$demographics %>%
+  left_join( data_ls$randomization %>% filter(which == 1)) %>%
   mutate(randomization = as.factor(case_when(is.na(which) ~ "0", TRUE ~ which))) %>%
   inner_join(rbs_wide) %>%
   mutate(job = as.factor(case_when(is.na(job) ~ "Missing", TRUE ~ job))) %>%
