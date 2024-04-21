@@ -39,6 +39,7 @@ require(rmarkdown)
 require(downlit)
 require(xml2)
 require(knitr)
+require(magrittr)
 
 ```
 
