@@ -141,7 +141,6 @@ cat(sprintf("\n\n## ROC curve AUC is %0.2f (95 percent CI %0.2f - %0.2f)\n\n", a
 plot(roc(randomization ~ predict_randomization, data = randomization_tbl %>% filter(!is.na(predict_randomization))))
 
 cat("\n\n")
-
 cat("\n\n## Estimated marginal means\n\n")
 
 cat("\n\n### Marital\n\n")
