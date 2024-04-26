@@ -221,6 +221,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Of the potential patients providing data, what factors were associated with succesful randomization?</p></li>
 <li><p>Defining compliance as the % of potential study weeks where a patient showed up with a negative test, what factors were associated with higher compliance?</p></li>
 </ol>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load data and packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(tidyverse)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(public.ctn0094data)</span>
@@ -234,10 +236,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(scales)</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(emmeans)</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(marginaleffects)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 <section id="successful-randomization" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> SUCCESSFUL RANDOMIZATION</h1>
 <p>Of the patients listed in ‘everybody’ which ones are successfully randomized (‘randomization’)?</p>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create wide table of drug usage</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>data_ls <span class="ot">&lt;-</span> <span class="fu">loadRawData</span>(<span class="fu">c</span>(<span class="st">"randomization"</span>, <span class="st">"treatment"</span>, <span class="st">"rbs"</span>, <span class="st">"demographics"</span>, <span class="st">"everybody"</span>))</span>
@@ -276,11 +281,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">## Use bootstrap validation to determine what values are persistent</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <section id="use-bootstrap-validation-to-determine-what-values-are-persistent" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="use-bootstrap-validation-to-determine-what-values-are-persistent"><span class="header-section-number">2.1</span> Use bootstrap validation to determine what values are persistent</h2>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">'Total reported drugs' is cocaine + speed + speedball + opioid + heroin as 0/1 from rbs</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p>‘Total reported drugs’ is cocaine + speed + speedball + opioid + heroin as 0/1 from rbs</p>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>validate_randomization <span class="ot">&lt;-</span> <span class="fu">validate</span>(lrm_randomization, <span class="at">B =</span> <span class="dv">200</span>, <span class="at">bw =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <pre><code>    Backwards Step-down - Original Model</code></pre>
 <p>Deleted Chi-Sq d.f. P Residual d.f. P AIC<br>
 job 0.23 5 0.9988 0.23 5 0.9988 -9.77 education 2.69 3 0.4427 2.92 8 0.9395 -13.08 is_hispanic 0.11 1 0.7370 3.03 9 0.9632 -14.97 is_male 0.17 1 0.6795 3.20 10 0.9763 -16.80 speedball 1.84 1 0.1749 5.04 11 0.9293 -16.96 race 8.97 3 0.0297 14.01 14 0.4493 -13.99 heroin 6.24 1 0.0125 20.25 15 0.1627 -9.75 opioid 5.43 1 0.0198 25.68 16 0.0587 -6.32</p>
@@ -289,9 +301,12 @@ job 0.23 5 0.9988 0.23 5 0.9988 -9.77 education 2.69 3 0.4427 2.92 8 0.9395 -13.
 <p>Intercept 0.2726217 0.6201659 0.4396 6.602e-01 age -0.0731720 0.0295826 -2.4735 1.338e-02 age^2 0.0005492 0.0003716 1.4780 1.394e-01 marital=Never married 0.1830554 0.2178662 0.8402 4.008e-01 marital=Separated/Divorced/Widowed 0.2124224 0.2446399 0.8683 3.852e-01 marital=Missing -0.9641235 0.1857561 -5.1903 2.100e-07 total_reported_drugs=1 3.7372456 0.2154768 17.3441 0.000e+00 total_reported_drugs=2 3.6986121 0.2124678 17.4079 0.000e+00 total_reported_drugs=3 3.6472251 0.2211314 16.4935 0.000e+00 total_reported_drugs=4 3.8151182 0.2815350 13.5511 0.000e+00 total_reported_drugs=5 3.4882191 0.4293229 8.1249 4.441e-16</p>
 <p>Factors in Final Model</p>
 <p>[1] age marital total_reported_drugs</p>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">attr</span>(validate_randomization, <span class="st">"kept"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div>
 <table class="table" data-quarto-postprocess="true">
 <thead>
@@ -313,7 +328,7 @@ job 0.23 5 0.9988 0.23 5 0.9988 -9.77 education 2.69 3 0.4427 2.92 8 0.9395 -13.
 <tbody>
 <tr class="odd">
 <td style="text-align: left;"></td>
-<td style="text-align: left;">Mode:logical</td>
+<td style="text-align: left;">Mode :logical</td>
 <td style="text-align: left;">Mode :logical</td>
 <td style="text-align: left;">Mode :logical</td>
 <td style="text-align: left;">Mode :logical</td>
@@ -327,46 +342,52 @@ job 0.23 5 0.9988 0.23 5 0.9988 -9.77 education 2.69 3 0.4427 2.92 8 0.9395 -13.
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
-<td style="text-align: left;">TRUE:200</td>
-<td style="text-align: left;">FALSE:198</td>
-<td style="text-align: left;">FALSE:172</td>
-<td style="text-align: left;">FALSE:23</td>
+<td style="text-align: left;">FALSE:2</td>
 <td style="text-align: left;">FALSE:197</td>
-<td style="text-align: left;">FALSE:196</td>
-<td style="text-align: left;">FALSE:153</td>
+<td style="text-align: left;">FALSE:174</td>
+<td style="text-align: left;">FALSE:18</td>
+<td style="text-align: left;">FALSE:199</td>
+<td style="text-align: left;">FALSE:192</td>
+<td style="text-align: left;">FALSE:140</td>
 <td style="text-align: left;">TRUE:200</td>
-<td style="text-align: left;">FALSE:145</td>
-<td style="text-align: left;">FALSE:162</td>
-<td style="text-align: left;">FALSE:126</td>
+<td style="text-align: left;">FALSE:152</td>
+<td style="text-align: left;">FALSE:173</td>
+<td style="text-align: left;">FALSE:112</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">TRUE :2</td>
-<td style="text-align: left;">TRUE :28</td>
-<td style="text-align: left;">TRUE :177</td>
+<td style="text-align: left;">TRUE :198</td>
 <td style="text-align: left;">TRUE :3</td>
-<td style="text-align: left;">TRUE :4</td>
-<td style="text-align: left;">TRUE :47</td>
+<td style="text-align: left;">TRUE :26</td>
+<td style="text-align: left;">TRUE :182</td>
+<td style="text-align: left;">TRUE :1</td>
+<td style="text-align: left;">TRUE :8</td>
+<td style="text-align: left;">TRUE :60</td>
 <td style="text-align: left;">NA</td>
-<td style="text-align: left;">TRUE :55</td>
-<td style="text-align: left;">TRUE :38</td>
-<td style="text-align: left;">TRUE :74</td>
+<td style="text-align: left;">TRUE :48</td>
+<td style="text-align: left;">TRUE :27</td>
+<td style="text-align: left;">TRUE :88</td>
 </tr>
 </tbody>
 </table>
 
 
 </div>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>lrm_final <span class="ot">&lt;-</span> <span class="fu">lrm</span>(randomization <span class="sc">~</span> <span class="fu">pol</span>(age, <span class="dv">2</span>) <span class="sc">+</span> marital <span class="sc">+</span> total_reported_drugs, randomization_tbl, <span class="at">x =</span> <span class="cn">TRUE</span>, <span class="at">y =</span> <span class="cn">TRUE</span>, <span class="at">penalty =</span> <span class="dv">1</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>randomization_tbl<span class="sc">$</span>predict_randomization <span class="ot">&lt;-</span> <span class="fu">predict</span>(lrm_final, <span class="at">type =</span> <span class="st">"fitted"</span>)</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">## Project 51 has almost perfect randomization compared to other two</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 <section id="project-51-has-almost-perfect-randomization-compared-to-other-two" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="project-51-has-almost-perfect-randomization-compared-to-other-two"><span class="header-section-number">2.2</span> Project 51 has almost perfect randomization compared to other two</h2>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggemmeans</span>(<span class="fu">update</span>(lrm_final,.<span class="sc">~</span>.<span class="sc">+</span>project),<span class="st">"project"</span>) <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()   <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">project=</span>x, predicted, conf.low, conf.high) <span class="sc">%&gt;%</span> <span class="fu">kable</span>() <span class="sc">%&gt;%</span> <span class="fu">kable_styling</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div>
 <table class="table" data-quarto-postprocess="true">
 <thead>
@@ -401,25 +422,37 @@ job 0.23 5 0.9988 0.23 5 0.9988 -9.77 education 2.69 3 0.4427 2.92 8 0.9395 -13.
 
 
 </div>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">## Use bootstrap validtion to determine what values are persistent</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 <section id="use-bootstrap-validtion-to-determine-what-values-are-persistent" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="use-bootstrap-validtion-to-determine-what-values-are-persistent"><span class="header-section-number">2.3</span> Use bootstrap validtion to determine what values are persistent</h2>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>coef <span class="ot">&lt;-</span> <span class="fu">coefficients</span>(lrm_final)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(lrm_final)))</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">## Final logistic regression model predicting successful randomization (log-odds)</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 <section id="final-logistic-regression-model-predicting-successful-randomization-log-odds" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="final-logistic-regression-model-predicting-successful-randomization-log-odds"><span class="header-section-number">2.4</span> Final logistic regression model predicting successful randomization (log-odds)</h2>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">(factor reference levels based on alphabetical order)</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p>(factor reference levels based on alphabetical order)</p>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">term =</span> <span class="fu">names</span>(coef), coef, se) <span class="sc">%&gt;%</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p =</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">case_when</span>(coef <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="fu">pnorm</span>(coef <span class="sc">/</span> se, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>), <span class="cn">TRUE</span> <span class="sc">~</span> <span class="fu">pnorm</span>(coef <span class="sc">/</span> se, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>))) <span class="sc">%&gt;%</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pack_rows</span>(<span class="st">"Marital (ref level Married or Partnered)"</span>, <span class="dv">4</span>, <span class="dv">6</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pack_rows</span>(<span class="st">"Total Reported Drugs (reference level 0)"</span>, <span class="dv">7</span>, <span class="dv">11</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div>
 <table class="table" data-quarto-postprocess="true">
 <thead>
@@ -508,6 +541,8 @@ job 0.23 5 0.9988 0.23 5 0.9988 -9.77 education 2.69 3 0.4427 2.92 8 0.9395 -13.
 
 
 </div>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>calibrate_final <span class="ot">&lt;-</span> <span class="fu">calibrate</span>(lrm_final, <span class="at">B =</span> <span class="dv">200</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>calibrate_tbl <span class="ot">&lt;-</span></span>
@@ -516,9 +551,12 @@ job 0.23 5 0.9988 0.23 5 0.9988 -9.77 education 2.69 3 0.4427 2.92 8 0.9395 -13.
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(calibrated.orig<span class="sc">:</span>calibrated.corrected)</span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">## Show calibration (predicted vs actual) for predictive model of randomization</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 <section id="show-calibration-predicted-vs-actual-for-predictive-model-of-randomization" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="show-calibration-predicted-vs-actual-for-predictive-model-of-randomization"><span class="header-section-number">2.5</span> Show calibration (predicted vs actual) for predictive model of randomization</h2>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>calibrate_tbl <span class="sc">%&gt;%</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> predy, <span class="at">y =</span> value, <span class="at">color =</span> name)) <span class="sc">+</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
@@ -526,29 +564,54 @@ job 0.23 5 0.9988 0.23 5 0.9988 -9.77 education 2.69 3 0.4427 2.92 8 0.9395 -13.
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"calibration"</span>, <span class="at">x =</span> <span class="st">"Predicted Probability"</span>, <span class="at">y =</span> <span class="st">"Actual Probability"</span>) <span class="sc">+</span></span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">0.2</span>)) <span class="sc">+</span></span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">linetype =</span> <span class="st">"dashed"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p><img src="index_files/figure-html/randomization-1.png" class="img-fluid" width="2400"></p>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>auc <span class="ot">&lt;-</span> <span class="fu">ci.auc</span>(<span class="fu">roc</span>(randomization <span class="sc">~</span> predict_randomization, <span class="at">data =</span> randomization_tbl <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(predict_randomization))))</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">## ROC curve AUC is %0.2f (95 percent CI %0.2f - %0.2f)</span><span class="sc">\n\n</span><span class="st">"</span>, auc[<span class="dv">2</span>], auc[<span class="dv">1</span>], auc[<span class="dv">3</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 <section id="roc-curve-auc-is-0.81-95-percent-ci-0.79---0.83" class="level2" data-number="2.6">
 <h2 data-number="2.6" class="anchored" data-anchor-id="roc-curve-auc-is-0.81-95-percent-ci-0.79---0.83"><span class="header-section-number">2.6</span> ROC curve AUC is 0.81 (95 percent CI 0.79 - 0.83)</h2>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">roc</span>(randomization <span class="sc">~</span> predict_randomization, <span class="at">data =</span> randomization_tbl <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(predict_randomization))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p><img src="index_files/figure-html/randomization-2.png" class="img-fluid" width="2400"></p>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">## Estimated marginal means</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 <section id="estimated-marginal-means" class="level2" data-number="2.7">
 <h2 data-number="2.7" class="anchored" data-anchor-id="estimated-marginal-means"><span class="header-section-number">2.7</span> Estimated marginal means</h2>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">### Marital</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <section id="marital" class="level3" data-number="2.7.1">
 <h3 data-number="2.7.1" class="anchored" data-anchor-id="marital"><span class="header-section-number">2.7.1</span> Marital</h3>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ggemmeans</span>(lrm_final, <span class="st">"marital"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p><img src="index_files/figure-html/randomization-3.png" class="img-fluid" width="2400"></p>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_predictions</span>(lrm_final, <span class="st">"marital"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div>
 <table class="table" data-quarto-postprocess="true">
 <thead>
@@ -608,16 +671,28 @@ job 0.23 5 0.9988 0.23 5 0.9988 -9.77 education 2.69 3 0.4427 2.92 8 0.9395 -13.
 
 
 </div>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">### Total reported drugs</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 <section id="total-reported-drugs" class="level3" data-number="2.7.2">
 <h3 data-number="2.7.2" class="anchored" data-anchor-id="total-reported-drugs"><span class="header-section-number">2.7.2</span> Total reported drugs</h3>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ggemmeans</span>(lrm_final, <span class="st">"total_reported_drugs"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p><img src="index_files/figure-html/randomization-4.png" class="img-fluid" width="2400"></p>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_predictions</span>(lrm_final, <span class="st">"total_reported_drugs"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div>
 <table class="table" data-quarto-postprocess="true">
 <thead>
@@ -740,11 +815,17 @@ job 0.23 5 0.9988 0.23 5 0.9988 -9.77 education 2.69 3 0.4427 2.92 8 0.9395 -13.
 
 
 </div>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">### Age</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 <section id="age" class="level3" data-number="2.7.3">
 <h3 data-number="2.7.3" class="anchored" data-anchor-id="age"><span class="header-section-number">2.7.3</span> Age</h3>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ggemmeans</span>(lrm_final, <span class="st">"age[all]"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p><img src="index_files/figure-html/randomization-5.png" class="img-fluid" width="2400"></p>
 </section>
 </section>
@@ -754,6 +835,8 @@ job 0.23 5 0.9988 0.23 5 0.9988 -9.77 education 2.69 3 0.4427 2.92 8 0.9395 -13.
 <p>This adapts the code from ‘public.ctn0094extra’ vignette to summarise substance use across weeks.</p>
 <p>I define compliance as how many times the patient showed up with a negative UDS report, divided by the length of time in the study (Study Week + 1 for Baseline). Attendance is how many times the patient showed up with a report (positive or negative), divided by length of time in the study.</p>
 <p>Beta regression is used to create a parsimonious model, pruned “by hand” to get rid of irrelevant predictors. The correlation coefficients for these models are not good (R-squared &lt; 0.03) but there may be some insight into how to get better attendance or compliance for patients</p>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>data_ls <span class="ot">&lt;-</span> <span class="fu">loadRawData</span>(<span class="fu">c</span>(<span class="st">"randomization"</span>, <span class="st">"treatment"</span>))</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>data_ls<span class="sc">$</span>randomization <span class="ot">&lt;-</span></span>
@@ -1056,11 +1139,17 @@ job 0.23 5 0.9988 0.23 5 0.9988 -9.77 education 2.69 3 0.4427 2.92 8 0.9395 -13.
 <span id="cb30-300"><a href="#cb30-300" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-301"><a href="#cb30-301" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-302"><a href="#cb30-302" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">## Beta regression coefficients (factor reference levels based on alphabetical order)</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <section id="beta-regression-coefficients-factor-reference-levels-based-on-alphabetical-order" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="beta-regression-coefficients-factor-reference-levels-based-on-alphabetical-order"><span class="header-section-number">3.1</span> Beta regression coefficients (factor reference levels based on alphabetical order)</h2>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">### Compliance</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <section id="compliance" class="level3" data-number="3.1.1">
 <h3 data-number="3.1.1" class="anchored" data-anchor-id="compliance"><span class="header-section-number">3.1.1</span> Compliance</h3>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(beta_compliance_red) <span class="sc">%&gt;%</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>statistic) <span class="sc">%&gt;%</span></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>() <span class="sc">%&gt;%</span></span>
@@ -1068,6 +1157,7 @@ job 0.23 5 0.9988 0.23 5 0.9988 -9.77 education 2.69 3 0.4427 2.92 8 0.9395 -13.
 <span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pack_rows</span>(<span class="st">"Race (reference level Black)"</span>, <span class="dv">3</span>, <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pack_rows</span>(<span class="st">"job (reference level Full Time)"</span>, <span class="dv">6</span>, <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pack_rows</span>(<span class="st">"Marital (ref level Married or Partnered)"</span>, <span class="dv">11</span>, <span class="dv">13</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div>
 <table class="table" data-quarto-postprocess="true">
 <thead>
@@ -1206,16 +1296,28 @@ job 0.23 5 0.9988 0.23 5 0.9988 -9.77 education 2.69 3 0.4427 2.92 8 0.9395 -13.
 
 
 </div>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">### No major difference between Projects</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 <section id="no-major-difference-between-projects" class="level3" data-number="3.1.2">
 <h3 data-number="3.1.2" class="anchored" data-anchor-id="no-major-difference-between-projects"><span class="header-section-number">3.1.2</span> No major difference between Projects</h3>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">Update models by adding project and look for marginal means between projects</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p>Update models by adding project and look for marginal means between projects</p>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">#### Compliance</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <section id="compliance-1" class="level4" data-number="3.1.2.1">
 <h4 data-number="3.1.2.1" class="anchored" data-anchor-id="compliance-1"><span class="header-section-number">3.1.2.1</span> Compliance</h4>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggemmeans</span>(<span class="fu">update</span>(beta_compliance_red,.<span class="sc">~</span>.<span class="sc">+</span>project),<span class="st">"project"</span>) <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()   <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">project=</span>x, predicted, conf.low, conf.high) <span class="sc">%&gt;%</span> <span class="fu">kable</span>() <span class="sc">%&gt;%</span> <span class="fu">kable_styling</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div>
 <table class="table" data-quarto-postprocess="true">
 <thead>
@@ -1250,11 +1352,17 @@ job 0.23 5 0.9988 0.23 5 0.9988 -9.77 education 2.69 3 0.4427 2.92 8 0.9395 -13.
 
 
 </div>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">#### Attendance</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 <section id="attendance" class="level4" data-number="3.1.2.2">
 <h4 data-number="3.1.2.2" class="anchored" data-anchor-id="attendance"><span class="header-section-number">3.1.2.2</span> Attendance</h4>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggemmeans</span>(<span class="fu">update</span>(beta_attendance_red,.<span class="sc">~</span>.<span class="sc">+</span>project),<span class="st">"project"</span>) <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()   <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">project=</span>x, predicted, conf.low, conf.high) <span class="sc">%&gt;%</span> <span class="fu">kable</span>() <span class="sc">%&gt;%</span> <span class="fu">kable_styling</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div>
 <table class="table" data-quarto-postprocess="true">
 <thead>
@@ -1289,11 +1397,16 @@ job 0.23 5 0.9988 0.23 5 0.9988 -9.77 education 2.69 3 0.4427 2.92 8 0.9395 -13.
 
 
 </div>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">### Attendance</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 </section>
 <section id="attendance-1" class="level3" data-number="3.1.3">
 <h3 data-number="3.1.3" class="anchored" data-anchor-id="attendance-1"><span class="header-section-number">3.1.3</span> Attendance</h3>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(beta_attendance_red) <span class="sc">%&gt;%</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>statistic) <span class="sc">%&gt;%</span></span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>() <span class="sc">%&gt;%</span></span>
@@ -1301,6 +1414,7 @@ job 0.23 5 0.9988 0.23 5 0.9988 -9.77 education 2.69 3 0.4427 2.92 8 0.9395 -13.
 <span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pack_rows</span>(<span class="st">"Job (reference level Full Time)"</span>, <span class="dv">3</span>, <span class="dv">7</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pack_rows</span>(<span class="st">"Is living stable (reference level No)"</span>, <span class="dv">8</span>, <span class="dv">9</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pack_rows</span>(<span class="st">"Marital (ref level Married or Partnered)"</span>, <span class="dv">10</span>, <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div>
 <table class="table" data-quarto-postprocess="true">
 <thead>
@@ -1432,83 +1546,140 @@ job 0.23 5 0.9988 0.23 5 0.9988 -9.77 education 2.69 3 0.4427 2.92 8 0.9395 -13.
 
 
 </div>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">## Estimated marginal means</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 </section>
 <section id="estimated-marginal-means-1" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="estimated-marginal-means-1"><span class="header-section-number">3.2</span> Estimated marginal means</h2>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">### Age</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <section id="age-1" class="level3" data-number="3.2.1">
 <h3 data-number="3.2.1" class="anchored" data-anchor-id="age-1"><span class="header-section-number">3.2.1</span> Age</h3>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>emm_compliance_age <span class="ot">&lt;-</span> <span class="fu">ggemmeans</span>(beta_compliance_red, <span class="st">"age"</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">outcome=</span><span class="st">"compliance"</span>)</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>emm_attendance_age <span class="ot">&lt;-</span> <span class="fu">ggemmeans</span>(beta_attendance_red, <span class="st">"age"</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">outcome=</span><span class="st">"attendance"</span>)</span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(emm_attendance_age, emm_compliance_age) <span class="sc">%&gt;%</span></span>
 <span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>predicted, <span class="at">ymax=</span>conf.high, <span class="at">ymin=</span>conf.low, <span class="at">color=</span>outcome, <span class="at">fill=</span>outcome)) <span class="sc">+</span> <span class="fu">geom_smooth</span>() <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span><span class="fu">scale_y_continuous</span>(<span class="at">label=</span>percent) <span class="sc">+</span> <span class="fu">geom_ribbon</span>(<span class="at">alpha=</span><span class="fl">0.5</span>, <span class="at">color=</span><span class="cn">NA</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"Estimate"</span>,<span class="at">x=</span><span class="st">"Age"</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p><img src="index_files/figure-html/compliance-1.png" class="img-fluid" width="2400"></p>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">### Age (raw data) </span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 <section id="age-raw-data" class="level3" data-number="3.2.2">
 <h3 data-number="3.2.2" class="anchored" data-anchor-id="age-raw-data"><span class="header-section-number">3.2.2</span> Age (raw data)</h3>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>compliance_results <span class="sc">%&gt;%</span> <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(compliance, attendance, age) <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="sc">-</span>age) <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age,<span class="at">y=</span>value, <span class="at">color=</span>name, <span class="at">fill=</span>name)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.25</span>) <span class="sc">+</span> <span class="fu">geom_smooth</span>() <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">color=</span><span class="st">"Outcome"</span>, <span class="at">fill=</span><span class="st">"Outcome"</span>, <span class="at">y=</span><span class="st">"Rate"</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>) <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">label=</span>percent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p><img src="index_files/figure-html/compliance-2.png" class="img-fluid" width="2400"></p>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">### Marital</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 <section id="marital-1" class="level3" data-number="3.2.3">
 <h3 data-number="3.2.3" class="anchored" data-anchor-id="marital-1"><span class="header-section-number">3.2.3</span> Marital</h3>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>emm_compliance_marital <span class="ot">&lt;-</span> <span class="fu">ggemmeans</span>(beta_compliance_red, <span class="st">"marital"</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">outcome=</span><span class="st">"compliance"</span>) <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>emm_attendance_marital <span class="ot">&lt;-</span> <span class="fu">ggemmeans</span>(beta_attendance_red, <span class="st">"marital"</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">outcome=</span><span class="st">"attendance"</span>)<span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(emm_attendance_marital, emm_compliance_marital) <span class="sc">%&gt;%</span></span>
 <span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(x)) <span class="sc">%&gt;%</span></span>
 <span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>x, <span class="at">x=</span>predicted, <span class="at">xmax=</span>conf.high, <span class="at">xmin=</span> predicted, <span class="at">color=</span>outcome, <span class="at">fill=</span>outcome, <span class="at">group=</span>outcome)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">position=</span><span class="st">"dodge"</span>) <span class="sc">+</span> <span class="fu">geom_errorbar</span>(<span class="at">position=</span><span class="st">"dodge"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>) <span class="sc">+</span> <span class="fu">scale_x_continuous</span>(<span class="at">label=</span>percent) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"Marital"</span>, <span class="at">x=</span><span class="st">"Estimate"</span>) <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>outcome)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p><img src="index_files/figure-html/compliance-3.png" class="img-fluid" width="2400"></p>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">### Job</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 <section id="job" class="level3" data-number="3.2.4">
 <h3 data-number="3.2.4" class="anchored" data-anchor-id="job"><span class="header-section-number">3.2.4</span> Job</h3>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>emm_compliance_job <span class="ot">&lt;-</span> <span class="fu">ggemmeans</span>(beta_compliance_red, <span class="st">"job"</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">outcome=</span><span class="st">"compliance"</span>) <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>emm_attendance_job <span class="ot">&lt;-</span> <span class="fu">ggemmeans</span>(beta_attendance_red, <span class="st">"job"</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">outcome=</span><span class="st">"attendance"</span>)<span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(emm_attendance_job, emm_compliance_job) <span class="sc">%&gt;%</span></span>
 <span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(x)) <span class="sc">%&gt;%</span></span>
 <span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>x, <span class="at">x=</span>predicted, <span class="at">xmax=</span>conf.high, <span class="at">xmin=</span> predicted, <span class="at">color=</span>outcome, <span class="at">fill=</span>outcome, <span class="at">group=</span>outcome)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">position=</span><span class="st">"dodge"</span>) <span class="sc">+</span> <span class="fu">geom_errorbar</span>(<span class="at">position=</span><span class="st">"dodge"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>) <span class="sc">+</span> <span class="fu">scale_x_continuous</span>(<span class="at">label=</span>percent) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"Job"</span>, <span class="at">x=</span><span class="st">"Estimate"</span>) <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>outcome)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p><img src="index_files/figure-html/compliance-4.png" class="img-fluid" width="2400"></p>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">### Opioid</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 <section id="opioid" class="level3" data-number="3.2.5">
 <h3 data-number="3.2.5" class="anchored" data-anchor-id="opioid"><span class="header-section-number">3.2.5</span> Opioid</h3>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>emm_compliance_opioid <span class="ot">&lt;-</span> <span class="fu">ggemmeans</span>(beta_compliance_red, <span class="st">"opioid"</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">outcome=</span><span class="st">"compliance"</span>) <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>emm_attendance_opioid <span class="ot">&lt;-</span> <span class="fu">ggemmeans</span>(beta_attendance_red, <span class="st">"opioid"</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">outcome=</span><span class="st">"attendance"</span>)<span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(emm_attendance_opioid, emm_compliance_opioid) <span class="sc">%&gt;%</span></span>
 <span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(x)) <span class="sc">%&gt;%</span></span>
 <span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>x, <span class="at">x=</span>predicted, <span class="at">xmax=</span>conf.high, <span class="at">xmin=</span> predicted, <span class="at">color=</span>outcome, <span class="at">fill=</span>outcome, <span class="at">group=</span>outcome)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">position=</span><span class="st">"dodge"</span>) <span class="sc">+</span> <span class="fu">geom_errorbar</span>(<span class="at">position=</span><span class="st">"dodge"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>) <span class="sc">+</span> <span class="fu">scale_x_continuous</span>(<span class="at">label=</span>percent) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"opioid"</span>, <span class="at">x=</span><span class="st">"Estimate"</span>) <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>outcome)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p><img src="index_files/figure-html/compliance-5.png" class="img-fluid" width="2400"></p>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co">#test_predictions(beta_compliance_red, "marital") %&gt;%</span></span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  kable() %&gt;%</span></span>
 <span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  kable_styling()</span></span>
 <span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">### Race (compliance alone)</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 <section id="race-compliance-alone" class="level3" data-number="3.2.6">
 <h3 data-number="3.2.6" class="anchored" data-anchor-id="race-compliance-alone"><span class="header-section-number">3.2.6</span> Race (compliance alone)</h3>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ggemmeans</span>(beta_compliance_red, <span class="st">"race"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p><img src="index_files/figure-html/compliance-6.png" class="img-fluid" width="2400"></p>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">### Heroin (compliance alone)</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 <section id="heroin-compliance-alone" class="level3" data-number="3.2.7">
 <h3 data-number="3.2.7" class="anchored" data-anchor-id="heroin-compliance-alone"><span class="header-section-number">3.2.7</span> Heroin (compliance alone)</h3>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ggemmeans</span>(beta_compliance_red, <span class="st">"heroin"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p><img src="index_files/figure-html/compliance-7.png" class="img-fluid" width="2400"></p>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">### Speed (attendance alone)</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 <section id="speed-attendance-alone" class="level3" data-number="3.2.8">
 <h3 data-number="3.2.8" class="anchored" data-anchor-id="speed-attendance-alone"><span class="header-section-number">3.2.8</span> Speed (attendance alone)</h3>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ggemmeans</span>(beta_attendance_red, <span class="st">"speed"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p><img src="index_files/figure-html/compliance-8.png" class="img-fluid" width="2400"></p>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">### Is living stable (attendance alone)</span><span class="sc">\n\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 <section id="is-living-stable-attendance-alone" class="level3" data-number="3.2.9">
 <h3 data-number="3.2.9" class="anchored" data-anchor-id="is-living-stable-attendance-alone"><span class="header-section-number">3.2.9</span> Is living stable (attendance alone)</h3>
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ggemmeans</span>(beta_attendance_red, <span class="st">"is_living_stable"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <p><img src="index_files/figure-html/compliance-9.png" class="img-fluid" width="2400"></p>
 </section>
 </section>
