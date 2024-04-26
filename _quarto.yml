@@ -10,13 +10,14 @@ website:
 
 format:
   html:
-    theme: cosmo
+    theme: lux
     css: styles.css
-    toc: true
+    toc: TRUE
+    code-fold: TRUE
+    code-summary: "Show the code"
     embed-resources: FALSE
     code-tools:
       source: TRUE
       toggle: TRUE
       caption: none
-
 editor: visual
