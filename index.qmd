@@ -96,7 +96,7 @@ lrm_final <- lrm(randomization ~ pol(age, 2) + marital + total_reported_drugs, r
 
 randomization_tbl$predict_randomization <- predict(lrm_final, type = "fitted")
 
-cat("\n\n## Project 51 has almost perfect randomization compared to other two\n\n")
+cat("\n\n## Project 51 has almost perfect predicted randomization compared to other two (age not reported for non-randomized 51 patients)\n\n")
 
 ggemmeans(update(lrm_final,.~.+project),"project") %>% as.data.frame()   %>% dplyr::select(project=x, predicted, conf.low, conf.high) %>% kable() %>% kable_styling()
 
@@ -159,6 +159,9 @@ test_predictions(lrm_final, "total_reported_drugs") %>%
 
 cat("\n\n### Age\n\n")
 plot(ggemmeans(lrm_final, "age[all]"))
+
+cat("\n\n### Age (per project, not counting 51)\n\n")
+ggplot(randomization_tbl,aes(x=age, color=project, fill=project, y=as.numeric(as.character(randomization)))) + geom_smooth() + theme_bw() + labs(y="Observed Probability of randomzation")
 ```
 
 # ATTENDANCE AND COMPLIANCE POST-RANDOMIZATION
