@@ -96,10 +96,6 @@ lrm_final <- lrm(randomization ~ pol(age, 2) + marital + total_reported_drugs, r
 
 randomization_tbl$predict_randomization <- predict(lrm_final, type = "fitted")
 
-cat("\n\n## Project 51 has almost perfect predicted randomization compared to other two (age not reported for non-randomized 51 patients)\n\n")
-
-ggemmeans(update(lrm_final,.~.+project),"project") %>% as.data.frame()   %>% dplyr::select(project=x, predicted, conf.low, conf.high) %>% kable() %>% kable_styling()
-
 cat("\n\n## Use bootstrap validtion to determine what values are persistent\n\n")
 
 coef <- coefficients(lrm_final)
