@@ -77,14 +77,16 @@ randomization_tbl <-
   mutate(cocaine = as.factor(cocaine), heroin = as.factor(heroin), speedball = as.factor(speedball), opioid = as.factor(opioid), speed = as.factor(speed)) %>%
   inner_join(everybody)
 
-# use optimum penalty of 1 determined manually using 'pentrace'
+rand2 <- randomization_tbl %>% filter(project != "51")
+
+# use optimum penalty of 0.6 determined manually using 'pentrace'
 
 lrm_randomization <-
-  lrm(randomization ~ pol(age, 2) + job + education + marital + is_male + is_hispanic + race + total_reported_drugs + heroin + speedball + opioid, randomization_tbl, x = TRUE, y = TRUE, penalty = 1)
+  lrm(randomization ~ pol(age, 2) + job  + marital + education + is_male + is_hispanic + race, rand2, x = TRUE, y = TRUE, penalty = 0.4)
 
 
 cat("\n\n## Use bootstrap validation to determine what values are persistent\n\n")
-cat("\n\n'Total reported drugs' is cocaine + speed + speedball + opioid + heroin as 0/1 from rbs\n\n")
+
 
 validate_randomization <- validate(lrm_randomization, B = 200, bw = TRUE)
 
@@ -92,11 +94,11 @@ summary(attr(validate_randomization, "kept")) %>%
   kable() %>%
   kable_styling()
 
-lrm_final <- lrm(randomization ~ pol(age, 2) + marital + total_reported_drugs, randomization_tbl, x = TRUE, y = TRUE, penalty = 1)
+lrm_final <- lrm(randomization ~ pol(age, 2) +  marital, rand2, x = TRUE, y = TRUE, penalty = 0.4)
 
-randomization_tbl$predict_randomization <- predict(lrm_final, type = "fitted")
+rand2$predict_randomization <- predict(lrm_final, type = "fitted")
 
-cat("\n\n## Use bootstrap validtion to determine what values are persistent\n\n")
+cat("\n\n## Final model is age + marital \n\n")
 
 coef <- coefficients(lrm_final)
 se <- sqrt(diag(vcov(lrm_final)))
@@ -107,8 +109,7 @@ tibble(term = names(coef), coef, se) %>%
   mutate(p = 2 * case_when(coef > 0 ~ pnorm(coef / se, lower.tail = FALSE), TRUE ~ pnorm(coef / se, lower.tail = TRUE))) %>%
   kable() %>%
   kable_styling() %>%
-  pack_rows("Marital (ref level Married or Partnered)", 4, 6) %>%
-  pack_rows("Total Reported Drugs (reference level 0)", 7, 11)
+  pack_rows("Marital status (ref level Married or Partnered)", 4, 6)
 
 
 calibrate_final <- calibrate(lrm_final, B = 200)
@@ -139,19 +140,10 @@ plot(roc(randomization ~ predict_randomization, data = randomization_tbl %>% fil
 cat("\n\n")
 cat("\n\n## Estimated marginal means\n\n")
 
+
 cat("\n\n### Marital\n\n")
 plot(ggemmeans(lrm_final, "marital"))
 cat("\n\n")
-test_predictions(lrm_final, "marital") %>%
-  kable() %>%
-  kable_styling()
-
-cat("\n\n### Total reported drugs\n\n")
-plot(ggemmeans(lrm_final, "total_reported_drugs"))
-cat("\n\n")
-test_predictions(lrm_final, "total_reported_drugs") %>%
-  kable() %>%
-  kable_styling()
 
 cat("\n\n### Age\n\n")
 plot(ggemmeans(lrm_final, "age[all]"))
@@ -162,7 +154,7 @@ ggplot(randomization_tbl,aes(x=age, color=project, fill=project, y=as.numeric(as
 
 # ATTENDANCE AND COMPLIANCE POST-RANDOMIZATION
 
-This adapts the code from 'public.ctn0094extra' vignette to summarise substance use across weeks.
+This adapts the code from 'public.ctn0094extra' vignette to summarize substance use across weeks.
 
 I define compliance as how many times the patient showed up with a negative UDS report, divided by the length of time in the study (Study Week + 1 for Baseline). Attendance is how many times the patient showed up with a report (positive or negative), divided by length of time in the study.
 
@@ -576,7 +568,7 @@ Analyses of the data indicate that the age of the participant is the most import
 
 -   Once randomized, the rates of attendance and compliance goe up with increasing age.
 
-For randomization, the other predictors are the total reported drugs and martial status, but in both cases missing is the most important factor – and there, lack of reported data (indicating unwillingness to participate by reporting data?) indicates lower probability of being randomized. The predictive power of this model is quite strong (AUC 0.8, linear calibration curve).
+For randomization, the other predictor is marital status but the greatest effect is whether data is missing – does this reflect cooperation of the patient? The predictive power of this model is quite strong (AUC 0.78, linear calibration curve).
 
 For compliance and attendance, the predictive power of models are lower. Age remains the most powerful predictor, while other predictors appear to be race, job, marital status, and heroin and opioid.
 
