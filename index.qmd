@@ -439,7 +439,7 @@ compliance_results <-
   group_by(project, who) %>%
   summarise(sum_pos = sum(udsStatus == "+"), sum_neg = sum(udsStatus == "-"), sumMissing = sum(udsStatus == "o"), total_weeks = 1 + max(studyWeek)) %>%
   mutate(compliance = sum_neg / total_weeks, attendance = (sum_neg+sum_pos)/total_weeks) %>%
-  inner_join(randomization_tbl %>% dplyr::select(who, age, is_hispanic, race, job, education, is_living_stable, marital, is_male, cocaine:total_reported_drugs, predict_randomization)) %>%
+  inner_join(randomization_tbl %>% dplyr::select(who, age, is_hispanic, race, job, education, is_living_stable, marital, is_male, cocaine:total_reported_drugs)) %>%
   mutate(project=as.factor(project))
 
 # from https://stats.stackexchange.com/questions/31300/dealing-with-0-1-values-in-a-beta-regression
